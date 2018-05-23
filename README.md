@@ -11,3 +11,4 @@
 1. nc_training_filings.zip, which contains the HTML filings for each of the items in the training set CSV we sent over (which I believe is a set of 500). That CSV includes accession_number, and all the HTML filings in that archive are named <accession_number>.html .
 2. nc_validation_filings.zip, which contains the HTML filings for an extra 100 filings that aren’t in the training set. These are in case your students want to be able to try their models out on some unmarked data - we’ll provide feedback on those if they do.
 3. nc_validation_filings.csv, which contains the ticker and accession number for the filings in #2.
+

@@ -25,6 +25,12 @@ class UploadFileLogic(object):
             return request.url
 
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(self._config['UPLOAD_FOLDER'], '_'.join([request.form['ticker'], filename])))
-            return url_for('uploaded_file', filename=filename)
+            filename_secured = secure_filename(file.filename)
+
+            filename = '_'.join([request.form['ticker'], filename_secured])
+
+            file.save(os.path.join(
+                self._config['UPLOAD_FOLDER'],
+                filename
+            ))
+            return url_for('process_file', filename=filename)

@@ -49,15 +49,15 @@ def upload_file():
         upload_file_logic = UploadFileLogic(config=app.config)
         redirect_to = upload_file_logic.upload(request=request)
         if redirect_to:
-            redirect(redirect_to)
+            return redirect(redirect_to)
         else:
             raise Exception('Error uploading html')
 
     return render_template('body/upload_file/upload_file.html')
 
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
+@app.route('/process_file/<filename>')
+def process_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 

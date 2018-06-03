@@ -1,0 +1,26 @@
+<div class="col-9">
+    {% for para in paragraphs %}
+        <div class="row main">
+            <div id="para-{{ loop.index }}" class="row main-paragraph">
+                <div class="col-md-12">
+                    <h2>Score: {{ "%.2f"|format(para.score) }}</h2>
+                </div>
+                <div class="col-md-10">
+
+                    {% for prev in para.previous %}
+                        {% include 'body/main/previous-para.html' %}
+                    {% endfor %}
+
+                    <p>{{ para.main|join(' ')|safe }}</p>
+
+                    {% for follow in para.following|reverse %}
+                        {% include 'body/main/following-para.html' %}
+                    {% endfor %}
+
+                </div>
+
+                {% include 'body/main/context-buttons.html' %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

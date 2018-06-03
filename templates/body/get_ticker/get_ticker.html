@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block body %}
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        {% include 'navbar/navbar.html' %}
+
+        <div class="row">
+            <h2>Please choose a ticker:</h2>
+            <div class="col-md-10 offset-md-1">
+                {% for group in tickers | batch(6, fill_with=None) %}
+                {% set parentloop = loop %}
+                    <div class="row">
+                        {% for ticker in group %}
+                            <div class="col-md-2">
+                                <p class="lead"><a class="ticker-choice" href="/{{ ticker }}/">{{ ticker }}</a></p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% include 'body/scripts.html' %}
+</body>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block body %}
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        {% include 'navbar/navbar.html' %}
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="col-md-12 html-upload-title">
+                    <h2>Upload New File (HTML Only)</h2>
+                </div>
+
+                <div class="col-md-12 html-upload">
+                    <form action="{{ url_for('upload_file') }}" method=post enctype=multipart/form-data>
+                        <div class="form-group row">
+                            <label for="inputTicker" class="col-sm-4 col-form-label">Ticker</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="inputTicker" placeholder="ABC" name="ticker" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="uploadHTMLFile" class="col-sm-4 col-form-label">Upload HTML</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control-file" id="uploadHTMLFile" name="file" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <input type=submit value=Upload>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% include 'body/scripts.html' %}
+</body>
+{% endblock %}

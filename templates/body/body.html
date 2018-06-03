@@ -1,0 +1,16 @@
+<body>
+
+    <div class="container">
+        <!-- Static navbar -->
+        {% include 'navbar/navbar.html' %}
+
+        <div class="row">
+            <!-- Sidebar: legend and drop down -->
+            {% include 'body/sidebar/sidebar.html' %}
+            <!-- Main: This should hold all of the paragraphs, and highlighted phrases -->
+            {% include 'body/main/main.html' %}
+        </div>
+    </div>
+
+{% include 'body/scripts.html' %}
+</body>

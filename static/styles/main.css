@@ -5,10 +5,24 @@ html, body {
 
 nav {
     margin-bottom: 4em;
+    position: -webkit-sticky !important;
+}
+
+.body {
+    margin-top: 5em;
 }
 
 p {
     margin: 15px 0;
+}
+
+.margin-5em {
+    margin-top: 5em;
+}
+
+.sticky {
+  position: sticky;
+  top: 5em;
 }
 
 .legend {
@@ -48,6 +62,14 @@ p {
 .main div {
     background-color: white;
 }
+.main-paragraph {
+    height: 600px;
+}
+.para-content {
+    height: 525px;
+    overflow: auto;
+}
+
 .context-buttons {
     padding: 15px;
 }
@@ -56,13 +78,13 @@ p {
     font-weight: bold;
 }
 
-.group-one {
+.date {
     background-color: rgba(0, 91, 255, 0.4);
 }
-.group-two {
+.money {
     background-color: rgba(255, 105, 180, 0.4);
 }
-.group-three {
+.counts {
     background-color: rgba(124, 252, 0, 0.4);
 }
 
@@ -70,13 +92,13 @@ p {
     background-color: yellow;
 }
 
-.highlight .group-one {
+.highlight .date {
     background-color: rgb(165, 200, 255);
 }
-.highlight .group-two {
+.highlight .money {
     background-color: rgb(245, 165, 160);
 }
-.highlight .group-three {
+.highlight .counts {
     background-color: rgb(174, 252, 100)
 }
 

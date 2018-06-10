@@ -28,6 +28,14 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def get_nav_menu_options(_db):
+    nav = {}
+    for ticker in _db.keys():
+        nav[ticker] = {acc: _db[ticker][acc].keys() for acc in _db[ticker].keys()}
+
+    return nav
+
+
 class MatchGroups:
     DATE_MATCH = re.compile(r"([A-Z][a-z]+ \d{1,2}, (\d{4}))|(\d{1,2} [A-Z][a-z]+, (\d{4}))")
     MONEY_MATCH = re.compile(r"(\$\d[0-9.]+ [mb]illions?)|(\$\d{1,3}(,\d{1,3})*)")

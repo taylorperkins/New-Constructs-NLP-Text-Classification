@@ -24,11 +24,13 @@ class NewConstructs(BaseModel):
     _path = './data/nc_validation_filings/'
 
     """NewConstructs modeling class"""
-    def __init__(self, data_store, weighted=None, required_field_score=3):
+    def __init__(self, data_store, weighted=None, required_field_score=3, data_path=None):
         """
         :param weighted: dict() {word: weight} pairs
         """
         super(NewConstructs, self).__init__()
+
+        self._path = data_path if data_path is not None else self._path
 
         self._data_store = data_store()  # Call it to automatically read in the data
 
@@ -45,9 +47,6 @@ class NewConstructs(BaseModel):
         :param accession_number:
         :return:
         """
-        # directory = "../data/nc_training_filings/"
-        # contents = os.listdir(directory)
-
         with open(self._path + accession_number, 'r', encoding='utf-8') as file:
             test_text = file.read()
 

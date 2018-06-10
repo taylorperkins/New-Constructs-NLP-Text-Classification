@@ -273,8 +273,10 @@ class NewConstructs(BaseModel):
         :return:
         """
         if not self._data_store.get_accession_record(ticker, accession_path.split('.')[0]):
+            print("Reading in file for processing")
             test_paragraphs = self._read_HTML(accession_number=accession_path)
 
+            print("Tokenizing corpus per data key friendly name.")
             test_tokenized = self._tokenize_doc(
                 test_paragraphs,
                 tokenized_categories_required_words={cat: val['intersections'] for cat, val in tm.weights.items()}
@@ -292,9 +294,11 @@ class NewConstructs(BaseModel):
 
                 corpus = self._create_corpus_from_tokens(tm=tm, tokens=tokens_dict)
 
+                print(f"Performing TF-IDF for {cat}")
                 # Score each paragraph, not sentence
                 tfidf_model = TfidfModel(corpus=[doc[1] for doc in corpus])
 
+                print("Scoring paragraphs")
                 scored_paragraphs = self._score_paragraphs(
                     tm=tm,
                     tfidf_model=tfidf_model,
@@ -303,6 +307,7 @@ class NewConstructs(BaseModel):
                     required_words=tm.weights[cat]['intersections']
                 )
 
+                print("Getting most relevant sentences")
                 highlighted = self._highlight_doc(
                     scored_paragraphs=scored_paragraphs,
                     test_paragraphs=test_paragraphs,
@@ -314,8 +319,10 @@ class NewConstructs(BaseModel):
                 highlighted = dict(
                     list(OrderedDict(sorted(highlighted.items(), key=lambda x: x[1]['score'], reverse=True)).items())[:3])
 
+                print("Placing terms into buckets")
                 updates = self._add_css_classes(test_paragraphs, highlighted)
 
+                print("Updating data store")
                 self._data_store.update_accession(ticker, accession_path.split('.')[0], {cat: updates})
 
 

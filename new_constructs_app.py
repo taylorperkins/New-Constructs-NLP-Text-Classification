@@ -68,6 +68,7 @@ def get_data_key_friendly_name_highlights(ticker, accession_number, data_key_fri
 @app.route('/upload/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        print("Uploading File")
         upload_file_logic = UploadFileLogic(config=current_app.config)
         redirect_to = upload_file_logic.upload(request=request)
         if redirect_to:
@@ -83,6 +84,7 @@ def upload_file():
 
 @app.route('/process_file/<ticker>/<filename>/')
 def process_file(ticker, filename):
+    print("Beginning the cleaning and modeling of HTML.")
     new_constructs = NewConstructs(
         data_store=DataStore(
             path='./data/processed_html_data_store.pkl'
@@ -105,6 +107,7 @@ def process_file(ticker, filename):
         )
 
     if tm.weights is None:
+        print("No current weights in training model found. Starting training process.")
         tm.train()
 
     new_constructs.process_HTML(tm=tm, ticker=ticker, accession_path=filename)
@@ -113,6 +116,8 @@ def process_file(ticker, filename):
         with open('./data/processed_html_data_store.pkl', "rb") as f:
             app.db = pickle.load(f)
         app.nav_menu = get_nav_menu_options(_db=app.db)
+
+    print("Finished")
 
     return redirect(url_for(
         "get_data_key_friendly_names_from_accession",

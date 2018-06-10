@@ -37,45 +37,30 @@ class TrainModel(BaseModel):
             pass
         pass
 
-    def _validate_path(self, path, ext):
-        if not path.split('.')[-1] == ext:
-            raise IncorrectExtensionError(f"{self._pkl_path} does not have correct extension. Expected {ext}")
-
-    def read(self):
-        """Read from the pkl_path. If there are contents, return it. No training needed.
-
-        :return:
-        """
-        try:
-            with open(self._pkl_path, "rb") as f:
-                pkl = pickle.load(f)
-        except IOError:  # File doesn't exist
-            return None
-        else:
-            return pkl
-
-    def _write(self, train):
-        with open(self._pkl_path, "wb") as f:
-            pickle.dump(train, f)
-
     def train(self):
         """Pkl path returned empty, so we need to bring in the contents from the train path, and create a new model
         to be saved off
 
         :return:
         """
+        print("Reading in test set")
         train_set = pd.read_csv(self._train_path)
 
+        print("Tokenizing test set")
         train_tokenized = self.get_tokens(train_set)
 
         tokens_weights = defaultdict(dict)
 
         # add the tokens to the dictionary to keep track if what words we have found
         for cat, tokens in train_tokenized:
+            print(f"Beginning training process for {cat}")
+            print("Adding tokens to dictionary")
             self.dictionary.add_documents(tokens.values())
 
+            print("Determining weights.")
             tokens_weights[cat]['weights'] = self._create_training_weights(tokens=tokens.values())
 
+            print("Finding intersections.")
             tokens_weights[cat]['intersections'] = self._get_intersections(tokens.values())
 
             print(f"Intersections for {cat}: {tokens_weights[cat]['intersections']}")
@@ -91,6 +76,27 @@ class TrainModel(BaseModel):
             (cat, self._tokenize_doc(self._get_training_paragraphs(train_set, cat)))
             for cat in self._get_train_categories(train_set)
         )
+
+    def read(self):
+        """Read from the pkl_path. If there are contents, return it. No training needed.
+
+        :return:
+        """
+        try:
+            with open(self._pkl_path, "rb") as f:
+                pkl = pickle.load(f)
+        except IOError:  # File doesn't exist
+            return None
+        else:
+            return pkl
+
+    def _validate_path(self, path, ext):
+        if not path.split('.')[-1] == ext:
+            raise IncorrectExtensionError(f"{self._pkl_path} does not have correct extension. Expected {ext}")
+
+    def _write(self, train):
+        with open(self._pkl_path, "wb") as f:
+            pickle.dump(train, f)
 
     @staticmethod
     def _get_training_paragraphs(train_set, category):

@@ -3,6 +3,8 @@ from collections import defaultdict, Counter
 
 import pandas as pd
 
+from gensim.corpora.dictionary import Dictionary
+
 from logic.base_model import BaseModel
 
 
@@ -27,7 +29,8 @@ class TrainModel(BaseModel):
         self._train_path = train_path
         self._pkl_path = pkl_path
 
-        self._weights = None
+        self.dictionary = Dictionary()
+        self.weights = None
 
     def __call__(self, *args, **kwargs):
         if self._pkl_path is not None:
@@ -69,7 +72,7 @@ class TrainModel(BaseModel):
 
         # add the tokens to the dictionary to keep track if what words we have found
         for cat, tokens in train_tokenized:
-            self._token_dictionary.add_documents(tokens.values())
+            self.dictionary.add_documents(tokens.values())
 
             tokens_weights[cat]['weights'] = self._create_training_weights(tokens=tokens.values())
 
@@ -77,9 +80,11 @@ class TrainModel(BaseModel):
 
             print(f"Intersections for {cat}: {tokens_weights[cat]['intersections']}")
 
-        self._write(tokens_weights)
+        self.weights = tokens_weights
 
-        return tokens_weights
+        self._write(self)
+
+        print("Successfully trained model.")
 
     def get_tokens(self, train_set):
         return (

@@ -30,8 +30,8 @@ def allowed_file(filename):
 
 class MatchGroups:
     DATE_MATCH = re.compile(r"([A-Z][a-z]+ \d{1,2}, (\d{4}))|(\d{1,2} [A-Z][a-z]+, (\d{4}))")
-    MONEY_MATCH = re.compile(r"( (\$\d[0-9.]+ [mb]illions?))|( ($\d{1,3}(,\d{1,3})*) )")
-    COUNTS_MATCH = re.compile(r"( (\d[0-9.]+ [mb]illions?))|( (\d{1,3}(,\d{1,3})*) share[s])", flags=re.IGNORECASE)
+    MONEY_MATCH = re.compile(r"(\$\d[0-9.]+ [mb]illions?)|(\$\d{1,3}(,\d{1,3})*)")
+    COUNTS_MATCH = re.compile(r"(\d[0-9.]+ [mb]illion[s]?)|((\d{1,3}(,\d{1,3})*) share[s])", flags=re.IGNORECASE)
 
     @classmethod
     def match_date(cls, text):
@@ -44,3 +44,31 @@ class MatchGroups:
     @classmethod
     def match_counts(cls, sent):
         return True if cls.COUNTS_MATCH.findall(sent) else False
+
+
+CAT_GROUP_MATCH = {
+    'Share Repurchase Authorization Date': {
+        'regex': MatchGroups.match_date,
+        'class': 'date'
+    },
+    'Share Repurchase Count': {
+        'regex': MatchGroups.match_counts,
+        'class': 'counts'
+    },
+    'Share Repurchase Authorization': {
+        'regex': MatchGroups.match_money,
+        'class': 'money'
+    },
+    'Share Repurchase Intention': {
+        'regex': MatchGroups.match_money,
+        'class': 'money'
+    },
+    'Amount Spent on Share Repurchases': {
+        'regex': MatchGroups.match_money,
+        'class': 'money'
+    },
+    'Share Repurchase Utilization': {
+        'regex': MatchGroups.match_money,
+        'class': 'money'
+    }
+}

@@ -4,13 +4,9 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer  # pos='v'
 
-from gensim.corpora.dictionary import Dictionary
-
-
 class BaseModel(object):
     def __init__(self):
         self._lemmatizer = WordNetLemmatizer()
-        self._token_dictionary = Dictionary()
 
     def _tokenize_doc(self, paragraphs, tokenized_categories_required_words=None):
         """Processing method over all paragraphs passed in. If there are required words present, we exclude all

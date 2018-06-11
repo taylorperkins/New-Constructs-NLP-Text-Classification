@@ -5,7 +5,7 @@
         <!-- Static navbar -->
         {% include 'navbar/navbar.html' %}
 
-        <div class="row">
+        <div class="row body-content">
             <h2>Please choose a ticker:</h2>
             <div class="col-md-10 offset-md-1">
                 {% for group in tickers | batch(6, fill_with=None) %}

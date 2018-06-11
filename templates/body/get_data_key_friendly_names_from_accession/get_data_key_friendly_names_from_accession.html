@@ -4,16 +4,16 @@
     <div class="container">
         <!-- Static navbar -->
         {% include 'navbar/navbar.html' %}
-
+s
         <div class="row body-content">
-            <h2>Please choose a accession number:</h2>
+            <h2>Please choose a category:</h2>
             <div class="col-md-10 offset-md-1">
-                {% for group in accession_numbers | batch(3, fill_with=None) %}
+                {% for group in data_key_friendly_names | batch(3, fill_with=None) %}
                 {% set parentloop = loop %}
                     <div class="row">
-                        {% for acc in group %}
+                        {% for data_key_friendly_name in group %}
                             <div class="col-md-4">
-                                <p class="lead"><a class="ticker-choice" href="/{{ ticker }}/{{ acc }}/">{{ acc }}</a></p>
+                                <p class="lead"><a class="ticker-choice" href="/{{ ticker }}/{{ accession_number }}/{{ data_key_friendly_name }}/">{{ data_key_friendly_name }}</a></p>
                             </div>
                         {% endfor %}
                     </div>

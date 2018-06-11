@@ -1,6 +1,6 @@
 import os
 
-from flask import redirect, url_for
+from flask import url_for
 
 from werkzeug.utils import secure_filename
 
@@ -27,10 +27,11 @@ class UploadFileLogic(object):
         if file and allowed_file(file.filename):
             filename_secured = secure_filename(file.filename)
 
-            filename = '_'.join([request.form['ticker'], filename_secured])
+            if not os.path.isdir(os.path.join(self._config['UPLOAD_FOLDER'], request.form['ticker'])):
+                os.mkdir(os.path.join(self._config['UPLOAD_FOLDER'], request.form['ticker']))
 
             file.save(os.path.join(
-                self._config['UPLOAD_FOLDER'],
-                filename
+                f"{self._config['UPLOAD_FOLDER']}/{request.form['ticker']}",
+                filename_secured
             ))
-            return url_for('process_file', filename=filename)
+            return url_for('process_file', ticker=request.form['ticker'], filename=filename_secured)

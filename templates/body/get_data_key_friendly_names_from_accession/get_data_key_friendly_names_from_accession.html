@@ -5,7 +5,7 @@
         <!-- Static navbar -->
         {% include 'navbar/navbar.html' %}
 s
-        <div class="row">
+        <div class="row body-content">
             <h2>Please choose a category:</h2>
             <div class="col-md-10 offset-md-1">
                 {% for group in data_key_friendly_names | batch(3, fill_with=None) %}

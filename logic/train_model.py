@@ -43,17 +43,17 @@ class TrainModel(BaseModel):
 
         :return:
         """
-        print("Reading in test set")
+        print("Reading in training set")
         train_set = pd.read_csv(self._train_path)
 
-        print("Tokenizing test set")
+        print("Tokenizing training set")
         train_tokenized = self.get_tokens(train_set)
 
         tokens_weights = defaultdict(dict)
 
         # add the tokens to the dictionary to keep track if what words we have found
         for cat, tokens in train_tokenized:
-            print(f"Beginning training process for {cat}")
+            print(f"\nBeginning training process for {cat}")
             print("Adding tokens to dictionary")
             self.dictionary.add_documents(tokens.values())
 

@@ -1,4 +1,5 @@
 import pickle
+import shutil
 
 from flask import Flask, render_template, redirect, request, url_for, current_app
 
@@ -6,7 +7,7 @@ from config import UPLOAD_FOLDER
 
 from utils import CAT_GROUP_MATCH, get_nav_menu_options
 
-from data.processed_data import DataStore
+from logic.processed_data import DataStore
 
 from logic.upload_file import UploadFileLogic
 from logic.HTML_model import NewConstructs
@@ -117,6 +118,8 @@ def process_file(ticker, filename):
             app.db = pickle.load(f)
         app.nav_menu = get_nav_menu_options(_db=app.db)
 
+    shutil.rmtree(f"{app.config['UPLOAD_FOLDER']}/{ticker}")
+
     print("Finished")
 
     return redirect(url_for(
@@ -129,8 +132,8 @@ def process_file(ticker, filename):
 if __name__ == '__main__':
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     with app.app_context():
-        with open('./data/processed_html_data_store.pkl', "rb") as f:
-            app.db = pickle.load(f)
+        db = DataStore(path='./data/processed_html_data_store.pkl')
+        app.db = db().data
         app.nav_menu = get_nav_menu_options(_db=app.db)
 
     app.run(debug=True, use_debugger=False, use_reloader=False)

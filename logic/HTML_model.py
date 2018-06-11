@@ -13,7 +13,7 @@ from gensim.models import TfidfModel
 
 from utils import CAT_GROUP_MATCH
 
-from data.processed_data import DataStore
+from logic.processed_data import DataStore
 
 from logic.base_model import BaseModel
 from logic.train_model import TrainModel
@@ -273,7 +273,7 @@ class NewConstructs(BaseModel):
         :return:
         """
         if not self._data_store.get_accession_record(ticker, accession_path.split('.')[0]):
-            print("Reading in file for processing")
+            print("\nReading in file for processing")
             test_paragraphs = self._read_HTML(accession_number=accession_path)
 
             print("Tokenizing corpus per data key friendly name.")
@@ -284,7 +284,7 @@ class NewConstructs(BaseModel):
             # add the tokens to the dictionary to keep track if what words we have found
             ind_dict_count = dict()
             for cat, tokens_dict in test_tokenized.items():
-                print(cat)
+                print(f"\nStarting process for {cat}")
 
                 for ind, tokens in tokens_dict.items():
                     if ind not in ind_dict_count:
@@ -315,7 +315,7 @@ class NewConstructs(BaseModel):
                     category=cat
                 )
 
-                # This is a little crazy.. But it's just bringing back the top 5 results based on score
+                # This is a little crazy.. But it's just bringing back the top 3 results based on score
                 highlighted = dict(
                     list(OrderedDict(sorted(highlighted.items(), key=lambda x: x[1]['score'], reverse=True)).items())[:3])
 

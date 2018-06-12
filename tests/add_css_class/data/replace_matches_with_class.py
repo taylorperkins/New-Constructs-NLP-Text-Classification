@@ -35,6 +35,14 @@ config = {
             "regex": MatchGroups.DATE_MATCH
         }
     ),
+    "date_does_not_wrap_year_with_following_dash": (
+        "testing 2012-09 word",
+        {
+            "text": "testing 2012-09 word",
+            "_class": "date",
+            "regex": MatchGroups.DATE_MATCH
+        }
+    ),
     "date_ignores_case": (
         "<span class='date'>december 31, 2012</span>",
         {
@@ -163,6 +171,38 @@ config = {
             "regex": MatchGroups.COUNTS_MATCH
         }
     ),
+    "counts_allows_for_per_1": (
+        "<span class='counts'>10.5 per million</span>",
+        {
+            "text": "10.5 per million",
+            "_class": "counts",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "counts_allows_for_per_2": (
+        "<span class='counts'>10.5per million</span>",
+        {
+            "text": "10.5per million",
+            "_class": "counts",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "counts_allows_for_per_3": (
+        "<span class='counts'>10.5 permillion</span>",
+        {
+            "text": "10.5 permillion",
+            "_class": "counts",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "counts_allows_for_per_4": (
+        "<span class='counts'>10.5permillion</span>",
+        {
+            "text": "10.5permillion",
+            "_class": "counts",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
     "money_includes_dollar_amount": (
         "<span class='money'>$10 shares</span>",
         {
@@ -250,5 +290,37 @@ config = {
             "_class": "money",
             "regex": MatchGroups.MONEY_MATCH
         }
-    )
+    ),
+    "money_allows_for_per_1": (
+        "<span class='money'>10.5 per million</span>",
+        {
+            "text": "10.5 per million",
+            "_class": "money",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "money_allows_for_per_2": (
+        "<span class='money'>10.5per million</span>",
+        {
+            "text": "10.5per million",
+            "_class": "money",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "money_allows_for_per_3": (
+        "<span class='money'>10.5 permillion</span>",
+        {
+            "text": "10.5 permillion",
+            "_class": "money",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
+    "money_allows_for_per_4": (
+        "<span class='money'>10.5permillion</span>",
+        {
+            "text": "10.5permillion",
+            "_class": "money",
+            "regex": MatchGroups.COUNTS_MATCH
+        }
+    ),
 }

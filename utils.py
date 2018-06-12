@@ -37,10 +37,11 @@ def get_nav_menu_options(_db):
 
 
 class MatchGroups:
-    DATE_MATCH = re.compile(r"([A-Z][a-z]+ \d{1,2},? (\b(19|20)\d{2}\b))|(\d{1,2} [A-Z][a-z]+,? (\b(19|20)\d{2}\b)|\b(19|20)\d{2}\b)", flags=re.IGNORECASE)
-    MONEY_MATCH = re.compile(r"(\$[0-9.,]+ ([mb]illion|share)[s]?)", flags=re.IGNORECASE)
+    # Notice the `-` exclusion for years at the end
+    DATE_MATCH = re.compile(r"([A-Z][a-z]+ \d{1,2},? (\b(19|20)\d{2}\b))|(\d{1,2} [A-Z][a-z]+,? (\b(19|20)\d{2}\b)|\b(19|20)\d{2}\b(?!-))", flags=re.IGNORECASE)
+    MONEY_MATCH = re.compile(r"(\$[0-9.,]+\s?(per)?\s?([mb]illion|share)[s]?)", flags=re.IGNORECASE)
     # note that the dollar amount is optional
-    COUNTS_MATCH = re.compile(r"(\$?[0-9.,]+ ([mb]illion|share)[s]?)", flags=re.IGNORECASE)
+    COUNTS_MATCH = re.compile(r"(\$?[0-9.,]+\s?(per)?\s?([mb]illion|share)[s]?)", flags=re.IGNORECASE)
 
     @classmethod
     def match_date(cls, text):

@@ -18,6 +18,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def get_ticker():
+    if not current_app.db:
+        return redirect('/upload/')
+
     return render_template(
         'body/get_ticker/get_ticker.html',
         tickers=current_app.db.keys()

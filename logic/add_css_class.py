@@ -17,7 +17,12 @@ class AddCSSClass(object):
             group.sort(key=len)
             if group:
                 val = group.pop()
-                return text.replace(val, f"<span class='{_class}'>" + val + "</span>")
+                if _class == 'counts' and '$' in val:
+                    continue
+
+                text = text.replace(val, f"<span class='{_class}'>" + val + "</span>")
+
+        return text
 
     @classmethod
     def add_css_classes(cls, sent, highlight=False):

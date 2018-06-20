@@ -19,8 +19,25 @@ def time_func(func):
         print(f"\tTook {time.time() - t1} secs\n")
 
         return val
-
     return wrapper
+
+
+def assert_db(f):
+    """Decorator used to print the name of the function being called, and also serves to print out how long the func
+     took to run
+
+    :return:
+    """
+    from flask import current_app, redirect
+    from functools import wraps
+
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if not hasattr(current_app, 'db'):
+            return redirect('/upload/')
+
+        return f(*args, **kwargs)
+    return wrapped
 
 
 def allowed_file(filename):

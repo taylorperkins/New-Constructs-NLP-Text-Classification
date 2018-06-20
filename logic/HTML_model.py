@@ -13,7 +13,7 @@ from gensim.models import TfidfModel
 
 from utils import CAT_GROUP_MATCH
 
-from logic.processed_data import DataStore
+from logic.data_store import DataStore
 
 from logic.base_model import BaseModel
 from logic.train_model import TrainModel

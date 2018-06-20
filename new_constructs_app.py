@@ -5,9 +5,9 @@ from flask import Flask, render_template, redirect, request, url_for, current_ap
 
 from config import UPLOAD_FOLDER
 
-from utils import CAT_GROUP_MATCH, get_nav_menu_options
+from utils import CAT_GROUP_MATCH, get_nav_menu_options, assert_db
 
-from logic.processed_data import DataStore
+from logic.data_store import DataStore
 
 from logic.upload_file import UploadFileLogic
 from logic.HTML_model import NewConstructs
@@ -17,8 +17,9 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
+@assert_db
 def get_ticker():
-    if not current_app.db:
+    if not hasattr(current_app, 'db'):
         return redirect('/upload/')
 
     return render_template(
@@ -27,6 +28,7 @@ def get_ticker():
     )
 
 
+@assert_db
 @app.route('/<ticker>/', methods=['GET'])
 def get_accession_from_ticker(ticker):
     if ticker not in current_app.db.keys():
@@ -39,6 +41,7 @@ def get_accession_from_ticker(ticker):
     )
 
 
+@assert_db
 @app.route('/<ticker>/<accession_number>/', methods=['GET'])
 def get_data_key_friendly_names_from_accession(ticker, accession_number):
     if ticker not in current_app.db.keys() or accession_number not in current_app.db[ticker].keys():
@@ -52,6 +55,7 @@ def get_data_key_friendly_names_from_accession(ticker, accession_number):
     )
 
 
+@assert_db
 @app.route('/<ticker>/<accession_number>/<data_key_friendly_name>/', methods=['GET'])
 def get_data_key_friendly_name_highlights(ticker, accession_number, data_key_friendly_name):
     if data_key_friendly_name not in current_app.db.get(ticker, {}).get(accession_number, {}).keys():

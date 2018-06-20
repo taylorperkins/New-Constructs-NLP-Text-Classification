@@ -8,6 +8,7 @@ from utils import allowed_file
 
 
 class UploadFileLogic(object):
+    """Logic class for taking an HTML uploaded from a flask form, and placing it in a folder"""
     def __init__(self, config):
         self._config = config
 

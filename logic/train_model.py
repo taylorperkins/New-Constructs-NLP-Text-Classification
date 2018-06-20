@@ -32,11 +32,6 @@ class TrainModel(BaseModel):
         self.dictionary = Dictionary()
         self.weights = None
 
-    def __call__(self, *args, **kwargs):
-        if self._pkl_path is not None:
-            pass
-        pass
-
     def train(self):
         """Pkl path returned empty, so we need to bring in the contents from the train path, and create a new model
         to be saved off

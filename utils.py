@@ -33,7 +33,7 @@ def assert_db(f):
 
     @wraps(f)
     def wrapped(*args, **kwargs):
-        if not hasattr(current_app, 'db'):
+        if not hasattr(current_app, 'db') or not current_app.db:
             return redirect('/upload/')
 
         return f(*args, **kwargs)

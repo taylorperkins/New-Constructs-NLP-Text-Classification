@@ -8,8 +8,8 @@ from tests.add_css_class.data.replace_matches_with_class import config
 
 def assert_equal_test_template(*args):
     def test_template(self):
-        return self.assert_response_equal(*args)
 
+        return self.assert_response_equal(*args)
     return test_template
 
 
@@ -29,6 +29,11 @@ class TestReplaceMatchesWithClass(unittest.TestCase):
 
 
 def setup_module():
+    """This setup module is responsible for looking in the config associated with AddCSSClass.replace_matches_with_class
+    and dynamically creating a test case for every set of arguments and responses associated with the config.
+
+    :return:
+    """
     TestConfig = namedtuple('TestConfig', ['response_val', 'method_args'])
 
     for behavior, update_data_test_case_data in config.items():

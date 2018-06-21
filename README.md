@@ -34,10 +34,12 @@ The remainder of this README will be talking about the steps I took to achieve t
 
 What I mean by this is.. What is my end goal??
 Ultimately, I wanted a way for the user to upload a SEC filing, have the process run in the background, and save the results in the database (in this case, locally as a pkl file).
-Once the process is finished, the ticker, accession number, and categories are easily selectable to view the results.
-Once selected, the user should be able to see the most relevant paragraphs associated with the category with the target sentence in yellow.
-Group words should be highlighted, and score of that paragraph should be present.
-You should also be allowed the ability to select previous or future sentences relative to the relevant paragraph to provide context for the text.
+
+* Once the process is finished, the ticker, accession number, and categories are easily selectable to view the results.
+* Selecting a category, the user should be able to see the most relevant paragraphs associated with the category with the target sentence in yellow.
+* Group words should be highlighted, and score of that paragraph should be present.
+* You should also be allowed the ability to select previous or future sentences relative to the relevant paragraph to provide context for the text.
+
 Click [here](https://www.youtube.com/watch?v=HlOVcRdVRAE&feature=youtu.be) for a full demonstration on the end result.
 
 #### Create Initial Flask App
@@ -46,7 +48,7 @@ Yes, I wanted to create an app for this! It makes sense.
 There are several views that are required to make this work.
 The upload screen, choosing a ticker, choosing an accession number, choosing a category, then the actual view.
 Each one of these views needed html, styling, and code to handle the request.
-This can all be found in `new_constructs_app.py` and `templates/`.
+This can all be found in [new_constructs_app.py](new_constructs_app.py) and `templates/`.
 
 #### Create Logic for Model
 
@@ -103,4 +105,6 @@ We had the chance to work with some great data, help solve a 'real-world' proble
 
 Please message me for any questions surrounding the data or this project. Thank you!
 
-
+#### Team
+[Justin Rothbart](https://github.com/jroth006) AKA Redbeard Wizard
+[Xander Morrison](https://github.com/jxandermorrison) AKA Greek god of regex

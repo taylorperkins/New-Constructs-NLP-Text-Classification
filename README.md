@@ -106,5 +106,6 @@ We had the chance to work with some great data, help solve a 'real-world' proble
 Please message me for any questions surrounding the data or this project. Thank you!
 
 #### Team
-[Justin Rothbart](https://github.com/jroth006) AKA Redbeard Wizard
-[Xander Morrison](https://github.com/jxandermorrison) AKA Greek god of regex
+**[Justin Rothbart](https://github.com/jroth006)** aka _Redbeard Wizard.._
+
+**[Xander Morrison](https://github.com/jxandermorrison)** aka _Nordic god of regex.._
